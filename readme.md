@@ -30,7 +30,7 @@ DCA.Monster's implementation and each of it's components hinges on Cartesi's tec
     
 3. **Cartesi AMM & StreamableTokens Integration:** Port Uniswap V2's AMM to Cartesi, harnessing token transfer operations within Cartesi's optimized computing environment. Further refine this framework to seamlessly integrate with StreamableTokens, pioneering the concept of "stream swaps". Leveraging Cartesi's distinct computational strengths, these advanced swap modalities are introduced, which would be computationally infeasible without the capabilities provided by Cartesi.
     
-4.  **Gasless Transaction**: The EIP-4337 model will be adapted using Cartesi's off-chain computations, aiming for optimised transactional efficiency within DApps.
+4.  **Gasless Transaction**: The EIP-4337 gasless transactions model will be adapted using Cartesi's off-chain computations, aiming for optimised transactional efficiency within DApps.
     
 In summary, Cartesi's capabilities will be crucial for the technical execution of each module, ensuring both the enhancement of DCA.Monster and standalone functionality for the wider Cartesi ecosystem.
 
@@ -102,33 +102,33 @@ Our outlined deliverables aim to introduce robust functionalities tailored speci
 		
 	-   **Funds Request (USD) for the Deliverable**: [$x USD]
 
-5. **EIP 4337: Gasless Transactions with Transaction Sponsors for Cartesi DApps**
+	**4. Off-chain Transactions Aggregator API based on EIP-4337 for Cartesi DApps**
 
-	- **Description:**  
-A Python light adaptation of the [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) upgrade tailored for Cartesi DApps, facilitating gasless transactions within the Cartesi ecosystem. This enhancement offers a seamless transaction experience, eliminating the need for individual users to pay gas fees. Transaction sponsors, such as Paymasters, assume these costs, making the process especially friendly for newcomers unfamiliar with the intricacies of the gas system. This is meant to be a simple reusable implementation port of the EIP 4337 to be used by DCA.Monster to offer gas-less swaps but allowing upgrades to implement all the remaining features of the EIP 4337.
+	-   **Description:**
+	An API inspired by [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) custom-built for Cartesi DApps. It aggregates off-chain signed messages, validates the signatures, and structures them into Merkle Directed Acyclic Graphs (DAG) for storage on IPFS. To reinforce decentralization and circumvent potential transaction vetoing, the latest Content Identifier (CID) of the DAG is broadcasted over the Libp2p network. Given the public nature of the messages, any entity, including Cartesi-based protocols seeking to improve user experience, can process them via Cartesi's InputBox for rollup. This design epitomizes transparency and promotes efficient, gasless transactions within the Cartesi ecosystem.
 
-	- **Features:**
+		
+	-   **Features:**
+		
+		1.  **Gasless Transactions for Cartesi:** Allows users to conduct transactions without worrying about gas fees.
+			
+		2.  **Transparent Off-chain Transactions:** Transactions are bundled and stored publicly on IPFS and broadcasted over the Libp2p network, ensuring any participant can post them.
+			
+		3.  **Timestamp and ID Integrity:** Every message carries a signature, timestamp, and ID, ensuring each transaction's authenticity and preventing double-spending.
 
-		 1.  **Gasless Transactions for Cartesi:** Specifically designed to empower any Cartesi DApp with the ability to fund transactions not just with ETH but also with Cartesi bridged ERC-20 tokens.
-    
-		2.  **Paymaster Integration:** The backbone of the gasless transaction system, these Cartesi python smart contract accounts sponsor transactions, reducing the friction for DApp users. It's responsible for compensating the entity that fronts the gas cost for the transaction.
-    
-		3.  **Python Implementation:** Built using Python, this adaptation ensures a flexible and efficient approach to integrate gasless transactions within the Cartesi framework.
-    
+		4. **Optional Automatic Execution:** The API can be configured to autonomously enact messages using a designated private key after reaching a predetermined count of transactions or a specific time duration (e.g., every X transactions or seconds).
+			
+	-   **Design:**  
+		**Aggregator:** An API that processes off-chain signed messages, structures them into Merkle DAGs, and saves them on IPFS. It also broadcasts the associated CID via the Libp2p protocol. Optionally the API allows to automatically execute messages using a private key either after a set number of transactions or a specific time interval (e.g., every X transactions or seconds).
 
-	- **Design:**
-    
-		1.  **Aggregator:** The Aggregator collects multiple such Cartesi user operations. It is responsible for bundling these operations and validating the aggregated signatures. Once bundled, the Aggregator submits these operations to the Cartesi rollup. Implemented as a Docker service, they process off-chain signed messages and upload to IPFS. However, these Aggregator are run by Cartesi node runners. As a result, users must trust that these runners aren't censoring or vetoing specific transactions. This introduces an element of trust in the decentralised system.
-		2.  **Paymaster:** Python smart contract, assuring Cartesi DApp users can transact without gas fee concerns. Handles the logic to repay the sponsor for the gas upfront if needed.
-    
-	- **Use Cases:**
-
-		1.  **Generalised Gasless transactions:** In the context of DCA.Monster, this adaptation enables users to perform swaps without worrying about gas fees, thus streamlining the user experience and reducing friction. However this implementation will be generalised to work in any DApp to offer transaction sponsoring out of the box.
-    
-		2.  **Mass Adoption within Cartesi:** By providing this feature, Cartesi DApps can cater to a broader audience, thus fostering the wider adoption of Cartesi's unique offerings.
-    
-
+	-   **Use Cases:**
+		
+		1.  **Gasless Transactions in Cartesi:** Provides an efficient and user-friendly way to execute transactions without gas costs.
+			
+		2.  **Versatility in Cartesi Ecosystem:** The feature promotes broader Cartesi adoption by offering DApps and protocols a tool to enhance their user experience.
+			
 	-   **Deliverable duration**: [x weeks/months]
+		
 	-   **Funds request (USD) for the deliverable**: [$x USD]
     
 
@@ -168,7 +168,7 @@ Funds request (USD) for the POC: [$x USD]
     
 3.  **Broadened Cartesi Subgraphs Utility**: Our ambition for Cartesi Subgraphs isn't confined to its present capabilities. We envision augmenting its utility, ensuring it's adaptable to a plethora of data structures and sources.
     
-4.  **Augmented Gasless Transaction Capabilities**: Further the gasless transaction module to embrace a broader array of tokens, broadening its appeal and use-case scenarios.
+4.  **Augmented Gasless Transaction Capabilities**: Further the gasless transaction module to add transaction sponsor repayment in bridged tokens logic within the rollup, broadening its appeal and use-case scenarios.
     
 5.  **Educational Outreach**: Roll out detailed documentation, workshops, and tutorials, facilitating developers in harnessing the new modules, and integrating them into varied DApps.
     
@@ -216,8 +216,8 @@ In each case, constant monitoring, performance testing, and community feedback w
 1.  **Performance Benchmarks**:
     -   **Criteria**: Achieve optimized handling of simultaneous on-going streams without significant lag or processing delays. Our goal is for the system to gracefully handle a predefined number of streams without noticeable performance degradation.
     -   **Verification**: Detailed performance testing logs highlighting latency, throughput, and resource utilization.
-2.  **Aggregator Transaction Bundling**:
-	-   **Criteria**: Ensure efficient management of concurrent streams without prominent delays. The system should manage a set number of streams without evident performance drops.
+2.  **Aggregator Message Bundling**:
+    -   **Criteria**: Ensure efficient management of concurrent off-chain signed messages without prominent delays. The system should manage a set number of messages without evident performance drops.
 	-   **Verification**: Performance summary showcasing latency and throughput metrics.
 3.  **Module Integration and Interoperability**:
 	-   **Criteria**: Efficient module integration with Cartesi infrastructure, ensuring each component functions as intended.
@@ -248,10 +248,11 @@ The detailed technicalities of each deliverable have been elucidated in the tech
 3.  **AMM with StreamableToken Enhancement: Uniswap V2 Port for Cartesi**:
 	-   Precise python port of Uniswap V2 for the Cartesi platform, integrated with the constant product formula and token exchange operations.
 	-   Advanced Automated Market Maker tailored specifically for StreamableTokens, further enhancing the Uniswap V2 port for Cartesi to cater to StreamableTokens' unique requirements.
-5.  **EIP 4337: Gasless Transactions**:
-    
-    -   Python Implementation of the EIP-4337 tailored for Cartesi DApps.
-    -   Integration of gasless transactions and paymaster mechanism.
+4.  **Gasless Transactions Based on EIP-4337**:
+
+	-   Adapt a version of gasless transactions in a python API specifically designed for Cartesi DApps.
+		
+	-  Seamlessly incorporate the gasless transaction mechanism, drawing inspiration from the EIP-4337 structure, to enhance its functionality and usability within the Cartesi ecosystem.
 
 Each deliverable will be accessible within a consolidated GitHub repository, ensuring streamlined access and integration.
 
