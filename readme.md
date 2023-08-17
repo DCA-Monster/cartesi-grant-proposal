@@ -15,9 +15,8 @@ Key technical objectives for this POC include:
 
 1.  **Streamable tokens:** Implementing Streamable token mechanics designed for efficient management of large-scale ongoing streams and accurate real-time balance computations.
 2. **Cartesi Subgraphs:** Introducing a GraphQL API built atop Cartesi Node's native Postgres DB, emulating the utility and functionality of EVM's Subgraph, to streamline the processing of Cartesi-specific contract data for optimal frontend consumption.
-3.  **Cartesi Automated Market Maker:** Port the AMM model of Uniswap V2 to Cartesi, facilitating algorithmic token transfers without relying on an order book.
-4.  **AMM & StreamableTokens:** Adapting the Uniswap V2 structure for Cartesi to integrate fluidly with StreamableTokens, facilitating stream swaps.
-5.  **Gasless Transactions:** Adapting EIP-4337's gasless transaction framework for Cartesi DApps, keeping in mind Cartesi's unique architecture.
+3. **Cartesi Automated Market Maker & StreamableTokens Integration:** Port the AMM model of Uniswap V2 to Cartesi, facilitating algorithmic token transfers without relying on an order book. Further, adapt this structure to integrate seamlessly with StreamableTokens, enabling advanced stream swaps. Unlike traditional Order Book-based exchanges that require users to manually set buy or sell orders and often await matching trades, an AMM provides instant, automated swaps by leveraging a liquidity pool. This ensures more efficient trades, reduced user intervention, and a smoother overall trading experience.
+4.  **Gasless Transactions:** Adapting EIP-4337's gasless transaction framework for Cartesi DApps, keeping in mind Cartesi's unique architecture.
 
 The underlying assumption driving this POC is that these individual modules, when cohesively integrated, can effectively elevate DCA.Monster's functionalities. Each module is also engineered to be operationally independent, allowing for immediate deployment within the Cartesi framework upon finalization. The primary success criterion is the realization of a fully functional version of DCA.Monster and the individual operational readiness of each distinct module post-development of each deliverable (Detailed descriptions below).
   
@@ -29,11 +28,9 @@ DCA.Monster's implementation and each of it's components hinges on Cartesi's tec
     
 2. **Cartesi Subgraphss**: Implementing a GraphQL API that interfaces seamlessly with Cartesi's Postgres DB, focusing on the transformation of "Notices" and other relevant contract states into an easily consumable format. This approach, inspired by EVM's Subgraphs, mitigates the inefficiencies of the Inspect API and furnishes developers with a familiar and efficient toolset.
     
-3.  **Cartesi AMM**: Porting Uniswap V2's AMM to Cartesi to allow token transfer operations, leveraging Cartesi's efficient computing environment.
+3. **Cartesi AMM & StreamableTokens Integration:** Port Uniswap V2's AMM to Cartesi, harnessing token transfer operations within Cartesi's optimized computing environment. Further refine this framework to seamlessly integrate with StreamableTokens, pioneering the concept of "stream swaps". Leveraging Cartesi's distinct computational strengths, these advanced swap modalities are introduced, which would be computationally infeasible without the capabilities provided by Cartesi.
     
-4.  **Cartesi AMM with Streamable tokens**: Cartesi's modular computing will be used to adjust Uniswap V2's structure for compatibility with StreamableTokens featuring "stream swaps", and advance new kind of swap only possible with Cartesi's computation.
-    
-5.  **Gasless Transaction**: The EIP-4337 model will be adapted using Cartesi's off-chain computations, aiming for optimised transactional efficiency within DApps.
+4.  **Gasless Transaction**: The EIP-4337 model will be adapted using Cartesi's off-chain computations, aiming for optimised transactional efficiency within DApps.
     
 In summary, Cartesi's capabilities will be crucial for the technical execution of each module, ensuring both the enhancement of DCA.Monster and standalone functionality for the wider Cartesi ecosystem.
 
@@ -77,41 +74,34 @@ Our outlined deliverables aim to introduce robust functionalities tailored speci
 	- **Deliverable Duration**: [x weeks/months] 
 	- **Funds Request (USD) for the Deliverable**: [$x USD]
 
-3.  **AMM: Uniswap V2 Port for Cartesi**
-    
-    -   **Description**: A meticulous port of the Uniswap V2 architecture to the Cartesi platform using Python, focusing on traditional transfer operations as found in a [Constant Function Market Maker (CFMM)](https://en.wikipedia.org/wiki/Constant_function_market_maker).
-        
-    -   **Features**:
-        
-        -   Adheres to the constant product formula, integral to the Uniswap V2 model.
-        -   Supports standard transfer operations for straightforward token exchanges.
-    -   **Design**:
-        
-        -   An exacting port of the Uniswap V2 system, adapted for Cartesi's unique environment.
-    -   **Use Cases**:
-        
-        -   Decentralized token exchanges on the Cartesi platform.
-        -   Facilitates token swaps.
-	-   **Deliverable duration**: [x weeks/months]
-	-   **Funds request (USD) for the deliverable**: [$x USD]
-        
-4.  **StreamableToken AMM: Advanced Market Maker for StreamableTokens**
-    
-    -   **Description**: Building upon the base Uniswap V2 AMM ported to Cartesi, this AMM is optimized to work effortlessly with StreamableTokens. It not only manages regular swaps but also extends support for advanced stream swaps, utilizing the computational advantages of the Cartesi Dapp and pushing the boundaries toward DeFi 2.0.
-        
-    -   **Features**:
-        
-        -   Seamless integration with StreamableTokens, permitting advanced stream swaps.
-        -   Inherits the foundational features of the Uniswap V2 port but enhanced for token streams.
-    -   **Design**:
-        
-        -   An evolution of the Uniswap V2 port on Cartesi, specifically honed for StreamableTokens' operations.
-    -   **Use Cases**:
-        
-        -   Progressive decentralized token swaps with streaming capabilities.
-        -   Dynamic DeFi operations leveraging token stream features.
-	-   **Deliverable duration**: [x weeks/months]
-	-   **Funds request (USD) for the deliverable**: [$x USD]
+	**3. AMM: Combined Uniswap V2 Port & StreamableToken Enhancement for Cartesi**
+
+	-   **Description**: An integrated approach to bringing the Uniswap V2 architecture to the Cartesi platform using Python, focusing on traditional transfer operations from [Constant Function Market Maker (CFMM)](https://en.wikipedia.org/wiki/Constant_function_market_maker). Building on this foundational structure, we further optimize for StreamableTokens, introducing advanced stream swaps that leverage the computational capabilities of the Cartesi Dapp.
+		
+	-   **Features**:
+		
+		-   **Uniswap V2 Base**:
+			-   Adheres to the constant product formula inherent in the Uniswap V2 model.
+			-   Facilitates standard token exchange operations.
+		-   **StreamableToken Enhancement**:
+			-   Seamless integration with StreamableTokens, allowing for advanced stream swaps.
+			-   Inherits and builds upon the foundational features of the Uniswap V2 port.
+	-   **Design**:
+		
+		-   **Uniswap V2 Base**: Meticulous adaptation of the Uniswap V2 system for Cartesi's environment.
+		-   **StreamableToken Enhancement**: Evolves the Uniswap V2 port on Cartesi, honing in specifically for StreamableTokens' functionalities.
+	-   **Use Cases**:
+		
+		-   **Uniswap V2 Base**:
+			-   Decentralized token exchanges on the Cartesi platform.
+			-   Enables straightforward token swaps.
+		-   **StreamableToken Enhancement**:
+			-   Progressive decentralized token swaps incorporating streaming capabilities.
+			-   Pioneering DeFi operations that utilize token stream benefits like Dollar-Cost Averaging.
+	-   **Deliverable Duration**: [x weeks/months]
+		
+	-   **Funds Request (USD) for the Deliverable**: [$x USD]
+
 5. **EIP 4337: Gasless Transactions with Transaction Sponsors for Cartesi DApps**
 
 	- **Description:**  
@@ -198,11 +188,9 @@ This POC, presents a modular design that is ripe for a plethora of applications 
     
 2.  **Cartesi Subgraphs**: Drawing inspiration from the EVM subgraph, the Cartesi Subgraphs provide a GraphQL API integrated with Cartesi Node's Postgres DB. This unique configuration pre-processes on-chain data (like Cartesi Notices) in line with distinct business logic, ensuring it's primed for frontend consumption and user queries. This optimization can significantly elevate DApp performance and overall user experience.
     
-3.  **AMM Module**: Projects aiming to facilitate programmatic tradable tokens can integrate this module, simplifying token trading mechanics.
+3. **AMM Module with Advanced Stream Capabilities**: Projects aiming to simplify token trading mechanics can integrate this module. Beyond facilitating programmatic tradable tokens, it showcases the future of AMMs that can operate with streamable tokens and handle intricate rules, leveraging the enhanced capabilities provided by Cartesi.
     
-4.  **Advanced AMM with Streams**: This showcases the future of AMMs — ones that can operate with streamable tokens and potentially intricate rules. This becomes feasible given the expanded capabilities enabled by Cartesi.
-    
-5.  **Gasless Transactions**: As Ethereum trends towards mainstreaming gasless interactions with concepts like EIP-4337, it’s essential for Cartesi to adopt this model. The module doesn't just eliminate transactional friction but sets the stage for EIP-4337's future incorporation within Cartesi.
+4.  **Gasless Transactions**: As Ethereum trends towards mainstreaming gasless interactions with concepts like EIP-4337, it’s essential for Cartesi to adopt this model. The module doesn't just eliminate transactional friction but sets the stage for EIP-4337's future incorporation within Cartesi.
     
 In a nutshell, the POC's modules are versatile, ready-to-use components. Whether assimilated into expansive endeavors like DCA.Monster or integrated into smaller projects, they stand poised to redefine Cartesi-based developments, driving innovation and enhancing user-centric experiences.
   
@@ -257,14 +245,9 @@ The detailed technicalities of each deliverable have been elucidated in the tech
     
 	-	A GraphQL API interfaced with Cartesi Node's native Postgres DB, emulating the functionality of EVM's Subgraph.
 	-	A versatile framework geared towards indexing token streams, especially for DCA.Monster, while offering the flexibility for diverse applications.
-3.  **AMM: Uniswap V2 Port for Cartesi**:
-    
-    -   Precise python port of Uniswap V2 for the Cartesi platform.
-    -   Integration of the constant product formula and token exchange operations.
-4.  **StreamableToken AMM**:
-    
-    -   Advanced Market Maker tailored for StreamableTokens.
-    -   Enhancement of the Uniswap V2 port for Cartesi, honed for StreamableTokens' features.
+3.  **AMM with StreamableToken Enhancement: Uniswap V2 Port for Cartesi**:
+	-   Precise python port of Uniswap V2 for the Cartesi platform, integrated with the constant product formula and token exchange operations.
+	-   Advanced Automated Market Maker tailored specifically for StreamableTokens, further enhancing the Uniswap V2 port for Cartesi to cater to StreamableTokens' unique requirements.
 5.  **EIP 4337: Gasless Transactions**:
     
     -   Python Implementation of the EIP-4337 tailored for Cartesi DApps.
