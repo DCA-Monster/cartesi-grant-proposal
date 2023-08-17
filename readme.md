@@ -14,7 +14,7 @@ The crux of this POC centers around the development and optimization of Python-b
 Key technical objectives for this POC include:
 
 1.  **Streamable tokens:** Implementing Streamable token mechanics designed for efficient management of large-scale ongoing streams and accurate real-time balance computations.
-2.  **Cartesi Subgraphs:** Implementing a dedicated Graph API mechanism, fine-tuned for indexing Cartesi-specific "Notices".
+2. **Cartesi Subgraphs:** Introducing a GraphQL API built atop Cartesi Node's native Postgres DB, emulating the utility and functionality of EVM's Subgraph, to streamline the processing of Cartesi-specific contract data for optimal frontend consumption.
 3.  **Cartesi Automated Market Maker:** Port the AMM model of Uniswap V2 to Cartesi, facilitating algorithmic token transfers without relying on an order book.
 4.  **AMM & StreamableTokens:** Adapting the Uniswap V2 structure for Cartesi to integrate fluidly with StreamableTokens, facilitating stream swaps.
 5.  **Gasless Transactions:** Adapting EIP-4337's gasless transaction framework for Cartesi DApps, keeping in mind Cartesi's unique architecture.
@@ -27,7 +27,7 @@ DCA.Monster's implementation and each of it's components hinges on Cartesi's tec
 
 1.  **Streamable tokens**: Cartesi will provide the scalable environment for efficient handling of large-scale streams and precise real-time balance computations. This would be impossible to implement in classic EVM smart contracts.
     
-2.  **Cartesi Subgraphs**: A wrapper of Cartesi's graph API specifically targeting "Notices" generated in the rollup to index them with custom business logic to simplify data retrieval.
+2. **Cartesi Subgraphss**: Implementing a GraphQL API that interfaces seamlessly with Cartesi's Postgres DB, focusing on the transformation of "Notices" and other relevant contract states into an easily consumable format. This approach, inspired by EVM's Subgraphs, mitigates the inefficiencies of the Inspect API and furnishes developers with a familiar and efficient toolset.
     
 3.  **Cartesi AMM**: Porting Uniswap V2's AMM to Cartesi to allow token transfer operations, leveraging Cartesi's efficient computing environment.
     
@@ -59,21 +59,23 @@ Our outlined deliverables aim to introduce robust functionalities tailored speci
 	-   **Deliverable duration**: [x weeks/months]
 	-   **Funds request (USD) for the deliverable**: [$x USD]
 
-2.  **Cartesi Subgraphs: Standardised Notices Subgraph Indexing Mechanism**
+2.  **Cartesi Subgraphs:  GraphQL API Integration with Postgres DB**
 
-	-   **Description**: A Graph API tailored for Cartesi indexing "Notices" equipped with customisable parsers and Graph schemas. This mechanism mirrors the functionalities of [Subgraph](https://thegraph.com/docs/en/developing/creating-a-subgraph/) and is termed "Cartesi Subgraph." While its primary design targets indexing ongoing streams for DCA.Monster, its modular architecture ensures adaptability across diverse use cases. Within the Cartesi Subgraph framework, notices are parsed based on dedicated business logic, facilitating streamlined data provisioning for frontend applications via a Graph API, consistent with industry best practices.
-	-   **Features**:
-	    -   Flexible graph schema with configurable parsers, facilitating adaptability to diverse data structures and reusability in any context.
-	    -   Seamless integration into the Cartesi Docker compose infrastructure.
-	-   **Benchmarking**:
-    
-	    -   Prioritizes minimal indexation latency, ensuring its viability in frontend applications without compromising user experience.
-	-   **Use Cases**:
-    
-	    -   Offloads data querying responsibilities from the Cartesi Inspect DApp Rest API, promoting performance efficiency.
-	    -   Simplifies frontend business logic by presenting a ready-to-consume Graph API, streamlining data access and presentation.
-	-   **Deliverable duration**: [x weeks/months]
-	-   **Funds request (USD) for the deliverable**: [$x USD]
+	- **Description**: A GraphQL API built on top of Cartesi Node's native Postgres DB, specifically designed to imitate the functionality of EVM's [Subgraph](https://thegraph.com/docs/en/developing/creating-a-subgraph/). This novel implementation introduces a plug-in-like interface for the Postgres DB, bringing the familiar toolset of The Graph subgraphs to developers working with Cartesi. By acting as a business logic layer, it processes contract state information into easily consumable data formats for frontends. A significant advantage of this approach is replacing the less efficient "Inspect API", ensuring that the GraphQL API remains up-to-date with the latest contract information, analogous to Subgraphs in EVM contracts. 
+	- **Features**: 
+		- Mimics the familiar toolset of EVM's Subgraphs, enabling a smoother transition for developers to Cartesi. 
+		- Provides a high-performance alternative to the Cartesi Inspect API, resolving its inherent limitations. 
+		- Seamless plug-in-like  interface  for Cartesi's native Postgres DB. 
+	- **Benchmarking**: 
+		- Addresses the performance limitations of the Cartesi Inspect API, offering enhanced scalability and real-time data updates. 
+	- **Use Cases**: 
+		 - Aims to serve as a direct replacement for the Cartesi Inspect API, circumventing its efficiency constraints. See Considerations from Cartesi Documentation below. 
+		 - Offers frontends a consistently updated source of data, similar to how Subgraphs function  for EVM contracts. 
+	- **Considerations from Cartesi Documentation**: 
+		- **Inspect Server**: Currently suffers from serialization and scalability issues. Inspect API calls can impact application efficiency due to its design, which stops new input processing to handle inspect requests. 
+		- **Recommendation for Developers**: While the Inspect API is valuable for loading the application state initially, frequent calls should be minimized. For regular status updates, the GraphQL API should be leveraged, polling at intervals of around 500ms to maintain frontend synchronization. 
+	- **Deliverable Duration**: [x weeks/months] 
+	- **Funds Request (USD) for the Deliverable**: [$x USD]
 
 3.  **AMM: Uniswap V2 Port for Cartesi**
     
@@ -151,7 +153,7 @@ This POC fortifies Cartesi's developer ecosystem by delivering modular DeFi comp
     
 2. **Modular DeFi Components**: The POC emphasizes modularity. Each component functions independently, facilitating easier integration into various Cartesi DApps. This approach promotes innovation while decreasing development time and barriers for newcomers to Cartesi.
     
-3.  **General-Purpose Modules**: By introducing versatile tools such as Cartesi Subgraphs and Gasless Transactions, the POC broadens the toolkit available for developers, allowing for a wide array of applications beyond just DeFi.
+3.  **General-Purpose Modules**: The addition of versatile tools, like the GraphQL API for Cartesi Subgraphs and Gasless Transactions, provides developers with a broader toolkit.
 
 In sum, the POC's execution fosters agility in Cartesi's DeFi landscape and beyond, enabling developers to deploy faster, cut overheads, and smoothly integrate an array of cutting-edge modules. It's a significant stride towards a richer and more diversified development environment within Cartesi.
 
@@ -174,7 +176,7 @@ Funds request (USD) for the POC: [$x USD]
     
 2.  **Feedback Integration**: Actively engage with DCA.Monster users and the broader Cartesi developer community to refine and optimize the modules, ensuring they meet real-world demands.
     
-3.  **Broadened Cartesi Subgraphs Utility**: Amplify the utility of the Cartesi Subgraphs tool, supporting more diverse data structures and sources, expanding its reach.
+3.  **Broadened Cartesi Subgraphs Utility**: Our ambition for Cartesi Subgraphs isn't confined to its present capabilities. We envision augmenting its utility, ensuring it's adaptable to a plethora of data structures and sources.
     
 4.  **Augmented Gasless Transaction Capabilities**: Further the gasless transaction module to embrace a broader array of tokens, broadening its appeal and use-case scenarios.
     
@@ -194,7 +196,7 @@ This POC, presents a modular design that is ripe for a plethora of applications 
 
 1.  **Streamable Tokens**: These can be employed beyond DeFi, finding applications in gaming for in-game assets, or for continuous subscription models in service platforms.
     
-2.  **Cartesi Subgraphs**: Mimicking the EVM subgraph pattern, Cartesi Subgraphs preprocess on-chain data (Cartesi Notices), tailoring it with specific business logic, rendering it ready-to-consume for frontends and user queries. This streamlining can drastically enhance DApp efficiency and user experience.
+2.  **Cartesi Subgraphs**: Drawing inspiration from the EVM subgraph, the Cartesi Subgraphs provide a GraphQL API integrated with Cartesi Node's Postgres DB. This unique configuration pre-processes on-chain data (like Cartesi Notices) in line with distinct business logic, ensuring it's primed for frontend consumption and user queries. This optimization can significantly elevate DApp performance and overall user experience.
     
 3.  **AMM Module**: Projects aiming to facilitate programmatic tradable tokens can integrate this module, simplifying token trading mechanics.
     
@@ -253,8 +255,8 @@ The detailed technicalities of each deliverable have been elucidated in the tech
     -   Standardized C-SERC-20 interface, Cartesi's InputBox & Vouchers compatibility, and high-demand performance benchmarks.
 2.  **Cartesi Subgraphs**:
     
-    -   Graph API for Cartesi indexing "Notices", mirroring functionalities of Subgraph.
-    -   Adaptable framework targeting indexing of ongoing streams for DCA.Monster.
+	-	A GraphQL API interfaced with Cartesi Node's native Postgres DB, emulating the functionality of EVM's Subgraph.
+	-	A versatile framework geared towards indexing token streams, especially for DCA.Monster, while offering the flexibility for diverse applications.
 3.  **AMM: Uniswap V2 Port for Cartesi**:
     
     -   Precise python port of Uniswap V2 for the Cartesi platform.
