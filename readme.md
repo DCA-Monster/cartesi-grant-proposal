@@ -43,13 +43,13 @@ Our outlined deliverables aim to introduce robust functionalities tailored speci
 		-   Work seamlessly with Cartesi's InputBox & Vouchers
 	    -   Infinite (or extremely high) open streams that working graciously to allow building more sophisticated applications with them.
 	-   **Benchmarking**:
-	    -   Objective: Performance evaluation with high demand this number should support for a DEX operating at peak demand. Support at least [TODO] number of simultaneous token streams.
+	    -   Objective: Performance evaluation with high demand this number should support for a DEX operating at peak demand. Support at least 25,000 simultaneous token streams.
 	-   **Use Cases**:
 		-   Programmable transfers (e.g. send X tokens at specific time during X seconds)
 	    -   Subscription Services: Manage ongoing subscription payments.
 	    -   DEX
-	-   **Deliverable duration**: 3 weeks
-	-   **Funds request (USD) for the deliverable**: 3,750 USD
+	-   **Deliverable duration**: 4 weeks
+	-   **Funds request (USD) for the deliverable**: 5000 USD
 
 	**2. AMM: Combined Uniswap V2 Port & StreamableToken Enhancement for Cartesi**
 
@@ -75,9 +75,9 @@ Our outlined deliverables aim to introduce robust functionalities tailored speci
 		-   **StreamableToken Enhancement**:
 			-   Progressive decentralized token swaps incorporating streaming capabilities.
 			-   Pioneering DeFi operations that utilize token stream benefits like Dollar-Cost Averaging.
-	-   **Deliverable Duration**: 5 weeks
+	-   **Deliverable Duration**: 4 weeks
 		
-	-   **Funds Request (USD) for the Deliverable**: 6,250 USD
+	-   **Funds Request (USD) for the Deliverable**: 5000 USD
 
 By housing all these modular deliverables within a single GitHub repository, we aim to simplify integration, ensuring Cartesi DApps can easily leverage them for varied use cases. Each module is constructed with a minimalistic approach, focusing on core functionalities while maintaining the flexibility for broader applications.
 
